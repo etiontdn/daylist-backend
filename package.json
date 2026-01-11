@@ -1,0 +1,33 @@
+{
+  "name": "daylist-backend",
+  "version": "1.0.0",
+  "description": "back-end system for daylist app",
+  "main": "app.js",
+  "scripts": {
+    "start": "tsc && node dist/server.js",
+    "build": "tsc",
+    "dev": "nodemon src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etiontdn/daylist-backend.git"
+  },
+  "author": "João j",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/etiontdn/daylist-backend/issues"
+  },
+  "homepage": "https://github.com/etiontdn/daylist-backend#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.6",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
