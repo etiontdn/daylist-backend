@@ -20,8 +20,9 @@
   },
   "homepage": "https://github.com/etiontdn/daylist-backend#readme",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "mysql": "^2.18.1"
+    "mysql2": "^3.16.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
