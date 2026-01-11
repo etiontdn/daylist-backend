@@ -14,4 +14,7 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
+/* TODO: Adicionar Checagem de existência de Tabelas e
+Criar as tabelas básicas se não existirem */
+
 export default pool;
