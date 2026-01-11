@@ -1,5 +1,5 @@
-import mysql from 'mysql2';
-import dotenv from 'dotenv';
+import mysql from "mysql2";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -11,7 +11,7 @@ const pool = mysql.createPool({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     waitForConnections: true,
-    queueLimit: 0
+    queueLimit: 0,
 });
 
 /* TODO: Adicionar Checagem de existência de Tabelas e
