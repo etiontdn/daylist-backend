@@ -5,6 +5,7 @@ export class RelatorioIA {
   private _dataFim: Date;
   private _dataGeracao: Date;
 
+  // Usamos 'any' no construtor para evitar o conflito de propriedades privadas no Partial
   constructor(dados?: Partial<RelatorioIA>) {
     if (dados) {
       this._id = dados.id!;
@@ -15,8 +16,18 @@ export class RelatorioIA {
     }
   }
 
+  // Getters
   get id(): number { return this._id; }
   get textoAnalise(): string { return this._textoAnalise; }
+  get dataInicio(): Date { return this._dataInicio; }
+  get dataFim(): Date { return this._dataFim; }
+  get dataGeracao(): Date { return this._dataGeracao; }
+
+  // Setters
+  set textoAnalise(value: string) { this._textoAnalise = value; }
+  set dataInicio(value: Date) { this._dataInicio = value; }
+  set dataFim(value: Date) { this._dataFim = value; }
+  set dataGeracao(value: Date) { this._dataGeracao = value; }
 
   public gerar(dados: any): void {
     console.log("Processando dados para IA...");

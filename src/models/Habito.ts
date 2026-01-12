@@ -30,6 +30,14 @@ export class Habito {
   set metaAlvo(value: number) { this._metaAlvo = value; }
   get ativo(): boolean { return this._ativo; }
   set ativo(value: boolean) { this._ativo = value; }
+  get frequencia(): FrequenciaEnum { return this._frequencia; }
+  set frequencia(value: FrequenciaEnum) { this._frequencia = value; }
+  get categoria(): string { return this._categoria; }
+  set categoria(value: string) { this._categoria = value; }
+  get unidadeMedida(): string { return this._unidadeMedida; }
+  set unidadeMedida(value: string) { this._unidadeMedida = value; }
+  get motivacao(): string { return this._motivacao; }
+  set motivacao(value: string) { this._motivacao = value; }
 
   public editar(nome: string, meta: number): void {
     this.nome = nome;

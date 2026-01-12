@@ -22,6 +22,10 @@ export class RegistroHabito {
   set qtdRealizada(value: number) { this._qtdRealizada = value; }
   get status(): StatusHabitoEnum { return this._status; }
   set status(value: StatusHabitoEnum) { this._status = value; }
+  get dataReferencia(): Date { return this._dataReferencia; }
+  set dataReferencia(value: Date) { this._dataReferencia = value; }
+  get atualizadoEm(): Date { return this._atualizadoEm; }
+  set atualizadoEm(value: Date) { this._atualizadoEm = value; }
 
   public adicionarProgresso(qtd: number): void {
     this._qtdRealizada += qtd;
