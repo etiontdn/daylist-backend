@@ -6,10 +6,6 @@ const PORT = process.env.PORT || 3000;
 
 app.get("/", (req: Request, res: Response) => {
     res.send("TypeScript with Express Server is running!");
-    db.query("SELECT * FROM EMPLOYEE;", (err, rows, fields) => {
-        if (err) throw err;
-        console.log(rows);
-    });
 });
 
 app.listen(PORT, () => {
