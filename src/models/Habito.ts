@@ -39,9 +39,13 @@ export class Habito {
   get motivacao(): string { return this._motivacao; }
   set motivacao(value: string) { this._motivacao = value; }
 
-  public editar(nome: string, meta: number): void {
+  public editar(nome: string, metaAlvo: number, motivacao: string, frequencia: FrequenciaEnum, categoria: string, unidadeMedida: string): void {
     this.nome = nome;
-    this.metaAlvo = meta;
+    this.metaAlvo = metaAlvo;
+    this.motivacao = motivacao;
+    this.frequencia = frequencia;
+    this.categoria = categoria;
+    this.unidadeMedida = unidadeMedida;
   }
 
   public arquivar(): void {
