@@ -1,4 +1,5 @@
-import { SexoEnum } from './enums';
+import { SexoEnum, StatusHabitoEnum } from './enums';
+import { RegistroHabito } from './RegistroHabito';
 
 export class Perfil {
   private _id: number;
@@ -44,7 +45,14 @@ export class Perfil {
     return this._pesoKg / (alturaMetros * alturaMetros);
   }
 
-  public verificarOfensiva(registrosOntem: any[]): void {
-    // Lógica de negócio
-  }
+  public verificarOfensiva(registrosOntem: RegistroHabito[]): boolean {
+    if (registrosOntem.length === 0) {
+        return false;
+    }
+    const todosConcluidos = registrosOntem.every(registro => 
+        registro.status === StatusHabitoEnum.CONCLUIDO
+    );
+
+    return todosConcluidos;
+}
 }
