@@ -1,18 +1,15 @@
 import { Usuario } from './Usuario';
+import { TipoUsuarioEnum } from './enums';
 
-export class Administrador {
-  private _id: number;
-
+export class Administrador extends Usuario {
+  
   constructor(dados?: Partial<Administrador>) {
-    if (dados) {
-      this._id = dados.id!;
-    }
+    super(dados); 
+    this.tipo_usuario = TipoUsuarioEnum.ADMIN;
   }
 
-  get id(): number { return this._id; }
-
   public cadastrarUsuario(email: string, nome: string): Usuario {
-    return new Usuario({ email });
+    return new Usuario({ email, tipo_usuario: TipoUsuarioEnum.CLIENTE });
   }
 
   public resetarSenhaUsuario(idUsuario: number): string {
