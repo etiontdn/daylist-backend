@@ -1,5 +1,7 @@
 import pool from "../database";
+import { FrequenciaEnum } from "../models/enums";
 import { Perfil } from "../models/Perfil";
+import { RegistroHabito } from "../models/RegistroHabito";
 
 export class PerfilService {
     /**
@@ -20,10 +22,14 @@ export class PerfilService {
     /**
      * Atualiza dados biométricos (Peso e Altura) e recalcula o IMC
      */
-    public async atualizarBiometria(usuarioId: number, peso: number, altura: number): Promise<void> {
+    public async atualizarBiometria(
+        usuarioId: number,
+        peso: number,
+        altura: number
+    ): Promise<void> {
         // 1. Instanciamos o modelo para usar a lógica de negócio (como o cálculo de IMC se necessário)
         const perfilData = await this.buscarPorUsuarioId(usuarioId);
-        
+
         if (!perfilData) {
             throw new Error("Perfil não encontrado para este usuário.");
         }
@@ -43,7 +49,7 @@ export class PerfilService {
      */
     public async obterResumoSaude(usuarioId: number) {
         const perfil = await this.buscarPorUsuarioId(usuarioId);
-        
+
         if (!perfil) throw new Error("Perfil não encontrado.");
 
         return {
@@ -51,7 +57,7 @@ export class PerfilService {
             ofensivaAtual: perfil.ofensivaAtual,
             maiorOfensiva: perfil.maiorOfensiva,
             pesoAtual: perfil.pesoKg,
-            alturaAtual: perfil.alturaCm
+            alturaAtual: perfil.alturaCm,
         };
     }
 
@@ -76,6 +82,45 @@ export class PerfilService {
                 "UPDATE Perfis SET ofensivaAtual = ?, maiorOfensiva = ? WHERE id = ?",
                 [novaOfensiva, novaMaior, perfilId]
             );
+        }
+    }
+
+    /**
+     * Serviço que verifica e atualiza a ofensiva do usuário.
+     * Pode ser chamado ao completar uma meta ou por uma rotina de final de dia.
+     * @return Retorna true se a verificação ter sucedido e incrementado a ofensiva
+     * e false se ainda faltar algum hábito diário a ser cumprido.
+     */
+    public async processarVerificacaoOfensiva(
+        usuarioId: number
+    ): Promise<boolean> {
+        // 1. Buscar o perfil e o ID do perfil
+        const perfil = await this.buscarPorUsuarioId(usuarioId);
+        if (!perfil) throw new Error("Perfil não encontrado.");
+
+        // 2. Buscar registros de HOJE (ou do dia que se quer validar)
+        // Usamos o RegistroHabitoService para pegar os dados do banco
+        const hoje = new Date().toISOString().split("T")[0];
+
+        // Buscamos os registros e filtramos apenas os que pertencem a hábitos DIÁRIOS
+        const [rows]: any = await pool.query(
+            `SELECT r.* FROM RegistrosHabito r
+             INNER JOIN Habitos h ON r.habito_id = h.id
+             WHERE h.perfil_id = ? AND r.dataReferencia = ? AND h.frequencia = ?`,
+            [perfil.id, hoje, FrequenciaEnum.DIARIO]
+        );
+
+        const registrosDiarios = rows.map((r: any) => new RegistroHabito(r));
+
+        // 3. Lógica de Negócio: O Model decide se a ofensiva é válida
+        const cumpriuMetasDiarias = perfil.verificarOfensiva(registrosDiarios);
+
+        // 4. Persistência: Atualizar o banco de dados com base na decisão do Model
+        if (cumpriuMetasDiarias) {
+            await this.incrementarOfensiva(perfil.id);
+            return true;
+        } else {
+            return false;
         }
     }
 }

@@ -2,6 +2,7 @@ import { StatusHabitoEnum } from './enums';
 
 export class RegistroHabito {
   private _id: number;
+  private _habito_id: number;
   private _dataReferencia: Date;
   private _qtdRealizada: number;
   private _status: StatusHabitoEnum;
@@ -10,6 +11,7 @@ export class RegistroHabito {
   constructor(dados?: Partial<RegistroHabito>) {
     if (dados) {
       this._id = dados.id!;
+      this._habito_id = dados.habito_id!;
       this._dataReferencia = dados.dataReferencia ? new Date(dados.dataReferencia) : new Date();
       this._qtdRealizada = dados.qtdRealizada || 0;
       this._status = dados.status || StatusHabitoEnum.PENDENTE;
@@ -26,6 +28,8 @@ export class RegistroHabito {
   set dataReferencia(value: Date) { this._dataReferencia = value; }
   get atualizadoEm(): Date { return this._atualizadoEm; }
   set atualizadoEm(value: Date) { this._atualizadoEm = value; }
+  get habito_id(): number { return this._habito_id }
+  set habito_id(value: number) { this._habito_id = value; }
 
   public adicionarProgresso(qtd: number): void {
     this._qtdRealizada += qtd;
