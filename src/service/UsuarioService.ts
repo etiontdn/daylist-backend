@@ -1,15 +1,15 @@
-import pool from '../database';
-import { Usuario } from '../models/Usuario';
-import { FrequenciaEnum } from '../models/enums';
+import pool from "../database";
+import { Administrador } from "../models/Administrador";
+import { Usuario } from "../models/Usuario";
+import { FrequenciaEnum } from "../models/enums";
 
 export class UsuarioService {
-    
     /**
      * Checa se um e-mail já está cadastrado no banco de dados.
      */
     public async emailEmUso(email: string): Promise<boolean> {
         const [rows]: any = await pool.query(
-            "SELECT id FROM Usuarios WHERE email = ? LIMIT 1", 
+            "SELECT id FROM Usuarios WHERE email = ? LIMIT 1",
             [email]
         );
         return rows.length > 0;
@@ -18,7 +18,10 @@ export class UsuarioService {
     /**
      * Cria um fluxo completo de boas-vindas: Usuário -> Perfil -> Hábitos Iniciais
      */
-    public async cadastrarComHabitosIniciais(email: string, senhaPlana: string) {
+    public async cadastrarComHabitosIniciais(
+        email: string,
+        senhaPlana: string
+    ) {
         const jaExiste = await this.emailEmUso(email);
         if (jaExiste) {
             throw new Error("Este e-mail já está em uso.");
@@ -50,16 +53,41 @@ export class UsuarioService {
 
             // 4. Inserir Hábitos Iniciais
             const habitosIniciais = [
-                { nome: 'Beber 2L de Água', cat: 'Saúde', freq: FrequenciaEnum.DIARIO, meta: 2, unidade: 'Litros' },
-                { nome: 'Caminhada 15 min', cat: 'Exercício', freq: FrequenciaEnum.DIARIO, meta: 15, unidade: 'Minutos' },
-                { nome: 'Meditação', cat: 'Mente', freq: FrequenciaEnum.DIARIO, meta: 1, unidade: 'Sessão' }
+                {
+                    nome: "Beber 2L de Água",
+                    cat: "Saúde",
+                    freq: FrequenciaEnum.DIARIO,
+                    meta: 2,
+                    unidade: "Litros",
+                },
+                {
+                    nome: "Caminhada 15 min",
+                    cat: "Exercício",
+                    freq: FrequenciaEnum.DIARIO,
+                    meta: 15,
+                    unidade: "Minutos",
+                },
+                {
+                    nome: "Meditação",
+                    cat: "Mente",
+                    freq: FrequenciaEnum.DIARIO,
+                    meta: 1,
+                    unidade: "Sessão",
+                },
             ];
 
             for (const habito of habitosIniciais) {
                 await connection.query(
                     `INSERT INTO Habitos (perfil_id, nome, categoria, frequencia, unidadeMedida, metaAlvo, ativo) 
                      VALUES (?, ?, ?, ?, ?, ?, true)`,
-                    [perfilId, habito.nome, habito.cat, habito.freq, habito.unidade, habito.meta]
+                    [
+                        perfilId,
+                        habito.nome,
+                        habito.cat,
+                        habito.freq,
+                        habito.unidade,
+                        habito.meta,
+                    ]
                 );
             }
 
@@ -68,9 +96,8 @@ export class UsuarioService {
             return {
                 userId: usuarioId,
                 perfilId: perfilId,
-                email: email
+                email: email,
             };
-
         } catch (error: any) {
             await connection.rollback();
             throw new Error(`Falha ao processar cadastro: ${error.message}`);
@@ -82,20 +109,34 @@ export class UsuarioService {
     /**
      * Valida credenciais de login
      */
-    public async login(email: string, senhaPlana: string): Promise<Usuario | null> {
-        const [rows]: any = await pool.query("SELECT * FROM Usuarios WHERE email = ?", [email]);
-        
-        if (rows.length === 0) return null;
-        const usuario = new Usuario(rows[0]);
-        const senhaValida = await usuario.autenticar(senhaPlana);
+    // Exemplo dentro de um Service de Login
+    public async login(email: string, senhaPlana: string) {
+        const [rows]: any = await pool.query(
+            "SELECT * FROM Usuarios WHERE email = ?",
+            [email]
+        );
 
+        if (rows.length === 0) return null;
+
+        const dadosBanco = rows[0];
+        let usuario: Usuario;
+
+        if (dadosBanco.tipo_usuario === "ADMIN") {
+            usuario = new Administrador(dadosBanco);
+        } else {
+            usuario = new Usuario(dadosBanco);
+        }
+
+        const senhaValida = await usuario.autenticar(senhaPlana);
         return senhaValida ? usuario : null;
     }
 
     /**
      * Retorna o ID do perfil vinculado a um ID de usuário específico.
      */
-    public async buscarPerfilIdPorUsuario(usuarioId: number): Promise<number | null> {
+    public async buscarPerfilIdPorUsuario(
+        usuarioId: number
+    ): Promise<number | null> {
         try {
             const [rows]: any = await pool.query(
                 "SELECT id FROM Perfis WHERE usuario_id = ? LIMIT 1",
