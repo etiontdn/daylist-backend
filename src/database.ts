@@ -94,4 +94,6 @@ async function initializeDatabase() {
 // Executa a inicialização
 initializeDatabase();
 
+// TODO: banco de dados inicial para testes
+
 export default pool;
