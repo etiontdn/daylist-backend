@@ -24,7 +24,7 @@ Para completar a sua documentação, preparei uma tabela detalhada que serve com
 | `/auth/login` | `POST` | Valida acesso e retorna tipo. | `{"email", "senha"}` | `{"user": {"id", "tipo"}}` |
 | `/auth/verificar-email` | `GET` | Checa se e-mail já existe. | `?email=teste@teste.com` | `{"disponivel": true}` |
 
-### 2. Perfil (Saúde e Ofensiva)
+### 2. Perfil
 
 | Rota | Método | Descrição | Parâmetros/Corpo (JSON) | Resposta Esperada (200) |
 | --- | --- | --- | --- | --- |
@@ -32,7 +32,7 @@ Para completar a sua documentação, preparei uma tabela detalhada que serve com
 | `/perfil/biometria` | `PUT` | Atualiza Peso e Altura. | `{"usuarioId", "peso", "altura"}` | `{"message": "Sucesso"}` |
 | `/perfil/verificar-ofensiva` | `POST` | Valida metas diárias. | `{"usuarioId"}` | `{"message": "Concluída"}` |
 
-### 3. Administração (Gestão Total)
+### 3. Administração
 
 | Rota | Método | Descrição | Parâmetros/Corpo (JSON) | Resposta Esperada |
 | --- | --- | --- | --- | --- |
