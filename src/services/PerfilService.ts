@@ -94,22 +94,17 @@ export class PerfilService {
      * e false se ainda faltar algum hábito diário a ser cumprido.
      */
     public async processarVerificacaoOfensiva(
-        usuarioId: number
+        usuarioId: number, date: Date
     ): Promise<boolean> {
-        // 1. Buscar o perfil e o ID do perfil
         const perfil = await this.buscarPorUsuarioId(usuarioId);
         if (!perfil) throw new Error("Perfil não encontrado.");
-
-        // 2. Buscar registros de HOJE (ou do dia que se quer validar)
-        // Usamos o RegistroHabitoService para pegar os dados do banco
-        const hoje = new Date().toISOString().split("T")[0];
 
         // Buscamos os registros e filtramos apenas os que pertencem a hábitos DIÁRIOS
         const [rows]: any = await pool.query(
             `SELECT r.* FROM RegistrosHabito r
              INNER JOIN Habitos h ON r.habito_id = h.id
              WHERE h.perfil_id = ? AND r.dataReferencia = ? AND h.frequencia = ?`,
-            [perfil.id, hoje, FrequenciaEnum.DIARIO]
+            [perfil.id, date, FrequenciaEnum.DIARIO]
         );
 
         const registrosDiarios = rows.map((r: any) => new RegistroHabito(r));
@@ -119,7 +114,14 @@ export class PerfilService {
 
         // 4. Persistência: Atualizar o banco de dados com base na decisão do Model
         if (cumpriuMetasDiarias) {
-            await this.incrementarOfensiva(perfil.id);
+            if (perfil.ultimaOfensiva.toDateString() !== date.toDateString()) {
+                perfil.ultimaOfensiva = date;
+                await pool.query(
+                    "UPDATE Perfis SET ultimaOfensivaAtualizacao = ? WHERE id = ?",
+                    [date, perfil.id]
+                );
+                await this.incrementarOfensiva(perfil.id);
+            }
             return true;
         } else {
             return false;

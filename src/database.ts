@@ -39,6 +39,7 @@ async function initializeDatabase() {
                 pesoKg FLOAT,
                 ofensivaAtual INT DEFAULT 0,
                 maiorOfensiva INT DEFAULT 0,
+                ultimaOfensivaAtualizacao DATE,
                 FOREIGN KEY (usuario_id) REFERENCES Usuarios(id) ON DELETE CASCADE
             )
         `);

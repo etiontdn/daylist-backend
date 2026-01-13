@@ -55,15 +55,19 @@ export class PerfilController {
    */
   public checarOfensiva = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const { usuarioId } = req.body;
+      const { usuarioId, data } = req.body;
 
       if (!usuarioId) {
         return res.status(400).json({ message: "ID do usuário é necessário." });
+      } if (isNaN(Date.parse(data))) {
+        return res.status(400).json({ message: "Data inválida." });
       }
 
-      await this.perfilService.processarVerificacaoOfensiva(usuarioId);
-
-      return res.status(200).json({ message: "Verificação de ofensiva concluída." });
+      if (await this.perfilService.processarVerificacaoOfensiva(usuarioId, new Date(data))) {
+        return res.status(200).json({ message: "Ofensiva incrementada!", value: true });
+      } else {
+        return res.status(200).json({ message: "Nenhuma mudança na ofensiva.", value: false });
+      }
     } catch (error: any) {
       return res.status(500).json({ message: "Erro ao processar ofensiva." });
     }

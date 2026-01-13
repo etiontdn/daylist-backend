@@ -9,6 +9,7 @@ export class Perfil {
   private _pesoKg: number;
   private _ofensivaAtual: number;
   private _maiorOfensiva: number;
+  private _ultimaOfensiva: Date;
 
   constructor(dados?: Partial<Perfil>) {
     if (dados) {
@@ -19,6 +20,7 @@ export class Perfil {
       this._pesoKg = dados.pesoKg!;
       this._ofensivaAtual = dados.ofensivaAtual || 0;
       this._maiorOfensiva = dados.maiorOfensiva || 0;
+      this._ultimaOfensiva = dados.ultimaOfensiva ? new Date(dados.ultimaOfensiva) : new Date(0);
     }
   }
 
@@ -34,6 +36,9 @@ export class Perfil {
   get ofensivaAtual(): number { return this._ofensivaAtual; }
   set ofensivaAtual(value: number) { this._ofensivaAtual = value; }
   get maiorOfensiva(): number { return this._maiorOfensiva; }
+  set maiorOfensiva(value: number) { this._maiorOfensiva = value; }
+  get ultimaOfensiva(): Date { return this._ultimaOfensiva; }
+  set ultimaOfensiva(value: Date) { this._ultimaOfensiva = value; }
 
   public atualizarDados(peso: number, altura: number, dataNascimento: Date, sexo: SexoEnum): void {
     this.pesoKg = peso;
