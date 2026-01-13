@@ -35,9 +35,11 @@ export class Perfil {
   set ofensivaAtual(value: number) { this._ofensivaAtual = value; }
   get maiorOfensiva(): number { return this._maiorOfensiva; }
 
-  public atualizarDados(peso: number, altura: number): void {
+  public atualizarDados(peso: number, altura: number, dataNascimento: Date, sexo: SexoEnum): void {
     this.pesoKg = peso;
     this.alturaCm = altura;
+    this.dataNascimento = dataNascimento;
+    this.sexo = sexo;
   }
 
   public calcularIMC(): number {

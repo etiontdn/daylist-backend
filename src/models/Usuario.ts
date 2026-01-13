@@ -19,7 +19,7 @@ export class Usuario {
         if (dados) {
             this._id = dados.id!;
             this._email = dados.email!;
-            this._senha_hash = (dados as any)._senha_hash;
+            this._senha_hash = dados.senha_hash!;
             this._tipo_usuario = dados.tipo_usuario!;
         }
     }

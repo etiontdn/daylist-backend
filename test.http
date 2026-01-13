@@ -1,0 +1,65 @@
+### Cadastrar Usuário
+POST http://localhost:3000/auth/registrar
+Content-Type: application/json
+
+{
+  "email": "joao.silva@example.com",
+  "senha": "senha123"
+}
+
+### Cadastrar Usuário - Email Já Cadastrado
+POST http://localhost:3000/auth/registrar
+Content-Type: application/json
+
+{
+  "email": "joao.silva@example.com",
+  "senha": "senha123"
+}
+
+### Login Usuário
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao.silva@example.com",
+  "senha": "senha123"
+}
+
+### Login Usuário - Senha Incorreta
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao.silva@example.com",
+  "senha": "senha1234"
+}
+
+### Login Usuário - Email Inexistente
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao.silva2@example.com",
+  "senha": "senha123"
+}
+
+### Verificar Email Existente
+GET http://localhost:3000/auth/verificar-email?email=joao.silva@example.com
+
+### Verificar Email Inexistente
+GET http://localhost:3000/auth/verificar-email?email=joao.silva2@example.com
+
+### Perfil do usuário id
+GET http://localhost:3000/perfil/1
+
+### Preencher dados Biometria
+PUT http://localhost:3000/perfil/biometria
+Content-Type: application/json
+
+{
+  "usuario_id": 1,
+  "altura": 1.75,
+  "peso": 70,
+  "data_nascimento": "1990-01-01",
+  "genero": "masculino"
+}

@@ -35,13 +35,13 @@ export class PerfilController {
    */
   public atualizarBiometria = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const { usuarioId, peso, altura } = req.body;
+      const { usuarioId, peso, altura, dataNascimento, sexo } = req.body;
 
       if (!usuarioId || !peso || !altura) {
         return res.status(400).json({ message: "Usuário, peso e altura são obrigatórios." });
       }
 
-      await this.perfilService.atualizarBiometria(usuarioId, peso, altura);
+      await this.perfilService.atualizarBiometria(usuarioId, peso, altura, dataNascimento, sexo);
 
       return res.status(200).json({ message: "Dados biométricos atualizados com sucesso!" });
     } catch (error: any) {

@@ -1,5 +1,5 @@
 import pool from "../database";
-import { FrequenciaEnum } from "../models/enums";
+import { FrequenciaEnum, SexoEnum } from "../models/enums";
 import { Perfil } from "../models/Perfil";
 import { RegistroHabito } from "../models/RegistroHabito";
 
@@ -25,7 +25,9 @@ export class PerfilService {
     public async atualizarBiometria(
         usuarioId: number,
         peso: number,
-        altura: number
+        altura: number,
+        dataNascimento: Date,
+        sexo: string
     ): Promise<void> {
         // 1. Instanciamos o modelo para usar a lógica de negócio (como o cálculo de IMC se necessário)
         const perfilData = await this.buscarPorUsuarioId(usuarioId);
@@ -35,7 +37,7 @@ export class PerfilService {
         }
 
         // 2. Usamos o método do Model para validar/atualizar os dados no objeto
-        perfilData.atualizarDados(peso, altura);
+        perfilData.atualizarDados(peso, altura, dataNascimento, sexo as SexoEnum);
 
         // 3. Persistimos no banco de dados
         await pool.query(
