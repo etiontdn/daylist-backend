@@ -33,3 +33,6 @@ export class RelatorioIA {
     console.log("Processando dados para IA...");
   }
 }
+
+// TODO: Service, Controller e Routes do Relatoria IA,
+// além de fazer o funcionamento usando o GEMINI do GOOGLE

@@ -1,10 +1,10 @@
-# 🌿 Daylist API
+# Daylist API
 
 **Sistema de Gestão de Hábitos e Gamificação de Saúde**
 
 Este projeto é uma API REST desenvolvida para auxiliar usuários a monitorar hábitos diários e semanais, promovendo uma vida mais saudável através de mecânicas de persistência (Ofensivas/Streaks).
 
-### 🚀 Tecnologias Utilizadas
+### Tecnologias Utilizadas
 
 * **Runtime:** Node.js com TypeScript
 * **Framework:** Express
@@ -13,54 +13,90 @@ Este projeto é uma API REST desenvolvida para auxiliar usuários a monitorar h�
 
 ---
 
-## 📑 Documentação da API
+## Documentação da API
+Para completar a sua documentação, preparei uma tabela detalhada que serve como um guia rápido para testes. Esta tabela traduz o arquivo de rotas em especificações de entrada e saída.
 
 ### 1. Autenticação e Usuários
 
-| Rota | Método | Descrição | Body (JSON) | Resposta (201/200) |
+| Rota | Método | Descrição | Parâmetros/Corpo (JSON) | Resposta Esperada (200/201) |
 | --- | --- | --- | --- | --- |
-| `/auth/registrar` | `POST` | Cria conta e gera hábitos iniciais. | `{ "email", "senha" }` | `{ "message", "data": { "usuarioId" } }` |
-| `/auth/login` | `POST` | Autentica e retorna tipo de usuário. | `{ "email", "senha" }` | `{ "user": { "id", "tipo" } }` |
-| `/auth/verificar-email` | `GET` | Checa disponibilidade de e-mail. | `query: ?email=...` | `{ "disponivel": true/false }` |
+| `/auth/registrar` | `POST` | Cria conta e 3 hábitos iniciais. | `{"email", "senha"}` | `{"message", "data"}` |
+| `/auth/login` | `POST` | Valida acesso e retorna tipo. | `{"email", "senha"}` | `{"user": {"id", "tipo"}}` |
+| `/auth/verificar-email` | `GET` | Checa se e-mail já existe. | `?email=teste@teste.com` | `{"disponivel": true}` |
 
-### 2. Perfil e Biometria
+### 2. Perfil (Saúde e Ofensiva)
 
-| Rota | Método | Descrição | Body (JSON) | Resposta (200) |
+| Rota | Método | Descrição | Parâmetros/Corpo (JSON) | Resposta Esperada (200) |
 | --- | --- | --- | --- | --- |
-| `/perfil/:usuarioId` | `GET` | Retorna IMC e Ofensivas atuais. | N/A | `{ "imc", "ofensivaAtual", "pesoAtual" }` |
-| `/perfil/biometria` | `PUT` | Atualiza peso/altura do usuário. | `{ "usuarioId", "peso", "altura" }` | `{ "message": "Dados atualizados" }` |
-| `/perfil/verificar-ofensiva` | `POST` | Força a validação da streak diária. | `{ "usuarioId" }` | `{ "message": "Verificação concluída" }` |
+| `/perfil/:usuarioId` | `GET` | Dashboard (IMC e Ofensiva). | `ID na URL` | `{"imc", "ofensivaAtual"}` |
+| `/perfil/biometria` | `PUT` | Atualiza Peso e Altura. | `{"usuarioId", "peso", "altura"}` | `{"message": "Sucesso"}` |
+| `/perfil/verificar-ofensiva` | `POST` | Valida metas diárias. | `{"usuarioId"}` | `{"message": "Concluída"}` |
 
-### 3. Gestão de Hábitos
+### 3. Administração (Gestão Total)
 
-| Rota | Método | Descrição | Body (JSON) | Resposta |
+| Rota | Método | Descrição | Parâmetros/Corpo (JSON) | Resposta Esperada |
 | --- | --- | --- | --- | --- |
-| `/habitos` | `POST` | Cria novo hábito personalizado. | `{ "perfilId", "nome", "metaAlvo", "frequencia" }` | `{ "id": 12 }` |
-| `/habitos/perfil/:perfilId` | `GET` | Lista todos os hábitos ativos. | N/A | `Array de Habitos[]` |
-| `/habitos/:id` | `PUT` | Edita configurações do hábito. | `{ "nome", "metaAlvo", "frequencia", ... }` | `{ "message": "Sucesso" }` |
-| `/habitos/:id` | `DELETE` | Arquiva (desativa) o hábito. | N/A | `{ "message": "Arquivado" }` |
+| `/admin/usuarios` | `POST` | Admin cria novo usuário. | `{"email", "nome", "adminId"}` | `{"senhaTemporaria"}` |
+| `/admin/usuarios/resetar-senha` | `PATCH` | Força nova senha aleatória. | `{"adminId", "usuarioId"}` | `{"novaSenha"}` |
+| `/admin/estatisticas` | `GET` | Métricas globais do app. | N/A | `{"usuariosCadastrados"}` |
+| `/admin/usuarios/:id` | `GET` | Detalhes de um usuário. | `ID na URL` | `{"id", "email", "tipo"}` |
 
-### 4. Registro de Progresso
+### 4. Gestão de Hábitos
 
-| Rota | Método | Descrição | Body (JSON) | Resposta |
+| Rota | Método | Descrição | Parâmetros/Corpo (JSON) | Resposta Esperada |
 | --- | --- | --- | --- | --- |
-| `/registros` | `POST` | Insere progresso (ex: bebi 500ml). | `{ "habitoId", "usuarioId", "qtdRealizada" }` | `{ "message": "Progresso salvo" }` |
-| `/registros/perfil/:id/data/:dt` | `GET` | Lista histórico de um dia específico. | N/A (parâmetros na URL) | `Array de Registros[]` |
+| `/habitos` | `POST` | Cria hábito customizado. | `{"perfilId", "nome", "metaAlvo", ...}` | `{"id": 1}` |
+| `/habitos/perfil/:perfilId` | `GET` | Lista hábitos ativos. | `perfilId na URL` | `Array de Habito[]` |
+| `/habitos/:id` | `PUT` | Edita dados do hábito. | `{"nome", "metaAlvo", ...}` | `{"message": "Sucesso"}` |
+| `/habitos/:id` | `DELETE` | Arquiva (desativa) hábito. | `ID na URL` | `{"message": "Arquivado"}` |
 
-### 5. Painel Administrativo
+### 5. Registro de Atividades
 
-| Rota | Método | Descrição | Body (JSON) | Resposta |
+| Rota | Método | Descrição | Parâmetros/Corpo (JSON) | Resposta Esperada |
 | --- | --- | --- | --- | --- |
-| `/admin/usuarios` | `POST` | Admin cadastra usuário (senha aleatória). | `{ "email", "nome", "adminId" }` | `{ "senhaTemporaria": "..." }` |
-| `/admin/usuarios/resetar-senha` | `PATCH` | Gera nova senha para o usuário. | `{ "adminId", "usuarioId" }` | `{ "novaSenha": "..." }` |
-| `/admin/estatisticas` | `GET` | Total de usuários e hábitos no sistema. | N/A | `{ "usuariosCadastrados", "habitos" }` |
+| `/registros` | `POST` | Salva progresso diário/semanal. | `{"habitoId", "usuarioId", "qtdRealizada"}` | `{"message": "Registrado"}` |
+| `/registros/perfil/:perfilId/data/:data` | `GET` | Histórico de um dia. | `perfilId` e `data (YYYY-MM-DD)` | `Array de Registro[]` |
+
+## Como Rodar o Projeto
+
+### Passo 1: Configurar as Variáveis de Ambiente
+
+Na raiz do seu projeto, crie um arquivo chamado **`.env`**. Preencha-o com as suas credenciais do MySQL.
+
+**Importante:** Certifique-se de que o usuário e a senha coincidam com os configurados no seu servidor local (ou crie o usuário conforme os dados abaixo).
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=daylist
+DB_USERNAME=daylist-admin
+DB_PASSWORD=daylist-admin
+
+```
 
 ---
 
-## 🛠 Como Rodar o Projeto
+### Passo 2: Preparar o MySQL
 
-1. Clone o repositório.
-2. Configure o arquivo `.env` com as credenciais do seu MySQL.
-3. Instale as dependências: `npm install`.
-4. Inicie o banco de dados (o script `initializeDatabase` rodará automaticamente, adicionando tabelas).
-5. Execute: `npm run dev`.
+Antes de rodar o código, você precisa garantir que o banco de dados especificado no `.env` exista. Abra o seu terminal do MySQL ou o **MySQL Workbench** e execute os seguintes comandos:
+
+```sql
+-- 1. Criar o Banco de Dados
+CREATE DATABASE IF NOT EXISTS daylist;
+
+-- 2. Criar o Usuário Administrativo (conforme seu .env)
+CREATE USER 'daylist-admin'@'localhost' IDENTIFIED BY 'daylist-admin';
+
+-- 3. Dar todas as permissões ao usuário para este banco
+GRANT ALL PRIVILEGES ON daylist.* TO 'daylist-admin'@'localhost';
+
+-- 4. Aplicar as alterações
+FLUSH PRIVILEGES;
+
+```
+
+### Passo 3: Execute.
+
+1. Instale as dependências: `npm install`.
+2. Execute: `npm run dev`.
