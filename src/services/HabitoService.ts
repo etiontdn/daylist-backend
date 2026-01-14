@@ -37,8 +37,7 @@ export class HabitoService {
             [perfilId]
         );
 
-        // Mapeia os resultados do banco para instâncias da classe Habito
-        return rows.map((row: any) => new Habito(row));
+        return rows;
     }
 
     /**

@@ -100,3 +100,49 @@ GET http://localhost:3000/admin/estatisticas
 ### /admin/usuarios/:id - Buscar usuário por ID
 GET http://localhost:3000/admin/usuarios/1
 
+### /habitos - Criar hábito para usuário
+POST http://localhost:3000/habitos
+Content-Type: application/json
+
+{
+  "perfilId": 1,
+  "nome": "Beber água",
+  "descricao": "Beber 2 litros de água por dia",
+  "frequencia": "DIARIO",
+  "unidadeMedida": "litros",
+  "metaAlvo": 2,
+  "motivacao": "Manter-se hidratado"
+}
+
+### /habitos/perfil/:perfilId - Listar hábitos do perfil 
+GET http://localhost:3000/habitos/perfil/1
+
+### /habitos/:id - Atualizar hábito
+PUT http://localhost:3000/habitos/1
+Content-Type: application/json
+
+{
+  "nome": "Beber água",
+  "descricao": "Beber 3 litros de água por dia",
+  "frequencia": "DIARIO",
+  "unidadeMedida": "litros",
+  "metaAlvo": 3,
+  "motivacao": "Manter-se hidratado"
+}
+
+### Arquivar hábito
+DELETE http://localhost:3000/habitos/1
+
+### Registrar progresso do hábito
+POST http://localhost:3000/registros
+Content-Type: application/json
+
+{
+  "habitoId": 7,
+  "usuarioId": 1,
+  "qtdRealizada": 1,
+  "data": "2025-01-13"
+}
+
+### /registros/perfil/:perfilId/data/:data - Histórico de um dia
+GET http://localhost:3000/registros/perfil/1/data/2025-01-13

@@ -71,6 +71,7 @@ async function initializeDatabase() {
                 status ENUM('PENDENTE', 'PARCIAL', 'CONCLUIDO'),
                 atualizadoEm DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 FOREIGN KEY (habito_id) REFERENCES Habitos(id) ON DELETE CASCADE
+                UNIQUE KEY unique_registro_periodo (habito_id, dataReferencia)
             )
         `);
 

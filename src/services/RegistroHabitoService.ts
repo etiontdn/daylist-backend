@@ -60,15 +60,18 @@ export class RegistroHabitoService {
         // 4. Salvar (Upsert)
         await pool.query(
             `INSERT INTO RegistrosHabito (habito_id, dataReferencia, qtdRealizada, status)
-         VALUES (?, ?, ?, ?)
-         ON DUPLICATE KEY UPDATE qtdRealizada = ?, status = ?`,
+            VALUES (?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE 
+                qtdRealizada = ?, 
+                status = ?, 
+                atualizadoEm = CURRENT_TIMESTAMP`, // Garante a atualização do timestamp
             [
                 habitoId,
                 dataReferencia,
                 novaQtdTotal,
                 status,
-                novaQtdTotal,
-                status,
+                novaQtdTotal, // Para o UPDATE
+                status, // Para o UPDATE
             ]
         );
     }

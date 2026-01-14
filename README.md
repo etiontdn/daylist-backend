@@ -20,8 +20,8 @@ Para completar a sua documentação, preparei uma tabela detalhada que serve com
 
 | Rota | Método | Descrição | Parâmetros/Corpo (JSON) | Resposta Esperada (200/201) |
 | --- | --- | --- | --- | --- |
-| `/auth/registrar` | `POST` | Cria conta e 3 hábitos iniciais. | `{"email", "senha"}` | `{"message", "data"}` |
-| `/auth/login` | `POST` | Valida acesso e retorna tipo. | `{"email", "senha"}` | `{"user": {"id", "tipo"}}` |
+| `/auth/registrar` | `POST` | Cria conta e 3 hábitos iniciais. | `{"email", "name", "senha"}` | `{"message", "data"}` |
+| `/auth/login` | `POST` | Valida acesso e retorna tipo. | `{"email", "senha"}` | `{"message", "user": {"id", "email", "tipo"}}` |
 | `/auth/verificar-email` | `GET` | Checa se e-mail já existe. | `?email=teste@teste.com` | `{"disponivel": true}` |
 
 ### 2. Perfil
@@ -54,7 +54,7 @@ Para completar a sua documentação, preparei uma tabela detalhada que serve com
 
 | Rota | Método | Descrição | Parâmetros/Corpo (JSON) | Resposta Esperada |
 | --- | --- | --- | --- | --- |
-| `/registros` | `POST` | Salva progresso diário/semanal. | `{"habitoId", "usuarioId", "qtdRealizada"}` | `{"message": "Registrado"}` |
+| `/registros` | `POST` | Salva progresso diário/semanal. | `{"habitoId", "usuarioId", "qtdRealizada", "data"(YYYY-MM-DD)}` | `{"message": "Registrado"}` |
 | `/registros/perfil/:perfilId/data/:data` | `GET` | Histórico de um dia. | `perfilId` e `data (YYYY-MM-DD)` | `Array de Registro[]` |
 
 ## Como Rodar o Projeto
