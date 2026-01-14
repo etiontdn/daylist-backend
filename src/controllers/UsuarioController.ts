@@ -17,7 +17,7 @@ export class UsuarioController {
         res: Response
     ): Promise<Response> => {
         try {
-            const { email, senha } = req.body;
+            const { email, name, senha } = req.body;
 
             // Validação básica de entrada
             if (!email || !senha) {
@@ -29,6 +29,7 @@ export class UsuarioController {
             const resultado =
                 await this.usuarioService.cadastrarComHabitosIniciais(
                     email,
+                    name,
                     senha
                 );
 

@@ -22,6 +22,7 @@ async function initializeDatabase() {
         await pool.query(`
             CREATE TABLE IF NOT EXISTS Usuarios (
                 id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
                 email VARCHAR(255) NOT NULL UNIQUE,
                 senha_hash VARCHAR(255) NOT NULL,
                 tipo_usuario ENUM('CLIENTE', 'ADMIN') NOT NULL

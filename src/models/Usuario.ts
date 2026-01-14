@@ -9,6 +9,7 @@ Isto é apenas um exemplo simplificado. Por se tratar de um trabalho acadêmico.
 
 export class Usuario {
     private _id: number;
+    private _name: string;
     private _email: string;
     private _senha_hash: string;
     private _tipo_usuario: TipoUsuarioEnum;
@@ -18,6 +19,7 @@ export class Usuario {
     constructor(dados?: Partial<Usuario>) {
         if (dados) {
             this._id = dados.id!;
+            this._name = dados.name!;
             this._email = dados.email!;
             this._senha_hash = dados.senha_hash!;
             this._tipo_usuario = dados.tipo_usuario!;
@@ -44,6 +46,13 @@ export class Usuario {
 
     get senha_hash(): string {
         return this._senha_hash;
+    }
+
+    get name(): string {
+        return this._name;
+    }
+    set name(value: string) {
+        this._name = value;
     }
 
     /**

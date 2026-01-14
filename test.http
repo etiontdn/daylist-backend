@@ -4,6 +4,7 @@ Content-Type: application/json
 
 {
   "email": "joao.silva@example.com",
+  "name": "João Silva",
   "senha": "senha123"
 }
 
@@ -72,4 +73,30 @@ Content-Type: application/json
   "usuarioId": 1,
   "data": "2025-01-13"
 }
+
+
+### /admin/usuarios - Cria usuário com senha temporária
+POST http://localhost:3000/admin/usuarios
+Content-Type: application/json
+
+{
+  "email": "joao.silva3@example.com",
+  "nome": "João Silva",
+  "adminId": 2
+}
+
+### /admin/usuarios/resetar-senha - Reseta a senha do usuário para uma senha temporária
+PATCH http://localhost:3000/admin/usuarios/resetar-senha
+Content-Type: application/json
+
+{
+  "usuarioId": 1,
+  "adminId": 2
+}
+
+### /admin/estatisticas - Estatísticas do sistema
+GET http://localhost:3000/admin/estatisticas
+
+### /admin/usuarios/:id - Buscar usuário por ID
+GET http://localhost:3000/admin/usuarios/1
 

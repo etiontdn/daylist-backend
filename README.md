@@ -45,9 +45,9 @@ Para completar a sua documentação, preparei uma tabela detalhada que serve com
 
 | Rota | Método | Descrição | Parâmetros/Corpo (JSON) | Resposta Esperada |
 | --- | --- | --- | --- | --- |
-| `/habitos` | `POST` | Cria hábito customizado. | `{"perfilId", "nome", "metaAlvo", ...}` | `{"id": 1}` |
+| `/habitos` | `POST` | Cria hábito customizado. | `{"perfilId", "nome", "categoria", "frequencia", "unidadeMedida", "metaAlvo", "motivacao"}` | `{"id": 1}` |
 | `/habitos/perfil/:perfilId` | `GET` | Lista hábitos ativos. | `perfilId na URL` | `Array de Habito[]` |
-| `/habitos/:id` | `PUT` | Edita dados do hábito. | `{"nome", "metaAlvo", ...}` | `{"message": "Sucesso"}` |
+| `/habitos/:id` | `PUT` | Edita dados do hábito. | `{"nome", "categoria", "frequencia", "unidadeMedida", "metaAlvo", "motivacao"}` | `{"message": "Sucesso"}` |
 | `/habitos/:id` | `DELETE` | Arquiva (desativa) hábito. | `ID na URL` | `{"message": "Arquivado"}` |
 
 ### 5. Registro de Atividades

@@ -20,6 +20,7 @@ export class UsuarioService {
      */
     public async cadastrarComHabitosIniciais(
         email: string,
+        name: string,
         senhaPlana: string
     ) {
         const jaExiste = await this.emailEmUso(email);
@@ -35,12 +36,13 @@ export class UsuarioService {
             // 1. Criar instância do Model e gerar Hash da senha
             const novoUsuario = new Usuario();
             novoUsuario.email = email;
+            novoUsuario.name = name;
             await novoUsuario.alterarSenha(senhaPlana);
 
             // 2. Inserir Usuário
             const [userRes]: any = await connection.query(
-                "INSERT INTO Usuarios (email, senha_hash, tipo_usuario) VALUES (?, ?, 'CLIENTE')",
-                [novoUsuario.email, novoUsuario.senha_hash]
+                "INSERT INTO Usuarios (email, name, senha_hash, tipo_usuario) VALUES (?, ?, ?, 'CLIENTE')",
+                [novoUsuario.email, novoUsuario.name, novoUsuario.senha_hash]
             );
             const usuarioId = userRes.insertId;
 
