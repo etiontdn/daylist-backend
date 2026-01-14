@@ -1,5 +1,8 @@
 import express from 'express';
-import routes from './routes'; // Importa o index.ts das rotas
+import routes from './routes';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 

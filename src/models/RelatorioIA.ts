@@ -1,3 +1,8 @@
+import { GoogleGenAI } from "@google/genai";
+const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY,
+});
+
 export class RelatorioIA {
   private _id: number;
   private _textoAnalise: string;
@@ -29,8 +34,28 @@ export class RelatorioIA {
   set dataFim(value: Date) { this._dataFim = value; }
   set dataGeracao(value: Date) { this._dataGeracao = value; }
 
-  public gerar(dados: any): void {
+  public async gerar(dados: any): Promise<void> {
     console.log("Processando dados para IA...");
+
+    const model = "gemini-1.5-flash";
+
+    const prompt = `
+      Analise os dados do usuário e gere um relatório de análise de hábitos.
+      Dados fornecidos:
+      - Perfil: ${dados.perfil}
+      - Hábitos: ${dados.habitos}
+      - Registros: ${dados.registros}
+    `;
+
+    try {
+      const response = await ai.models.generateContent({model, contents: prompt});
+      const result = response.text;
+      this._textoAnalise = result!;
+    }
+    catch (error) {
+      console.error("Erro ao gerar relatório com IA:", error);
+      this._textoAnalise = "Erro ao gerar relatório.";
+    }
   }
 
   toJSON(): any {

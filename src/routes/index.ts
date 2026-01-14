@@ -4,6 +4,7 @@ import { PerfilController } from '../controllers/PerfilController';
 import { AdministradorController } from '../controllers/AdministradorController';
 import { HabitoController } from '../controllers/HabitoController';
 import { RegistroHabitoController } from '../controllers/RegistroHabitoController';
+import { RelatorioIAController } from '../controllers/RelatorioIAController';
 
 const routes = Router();
 
@@ -13,6 +14,7 @@ const perfilCtrl = new PerfilController();
 const adminCtrl = new AdministradorController();
 const habitoCtrl = new HabitoController();
 const registroCtrl = new RegistroHabitoController();
+const relatorioCtrl = new RelatorioIAController();
 
 // --- ROTAS DE USUÁRIO & AUTENTICAÇÃO ---
 routes.post('/auth/registrar', usuarioCtrl.registrar);
@@ -39,5 +41,9 @@ routes.delete('/habitos/:id', habitoCtrl.arquivar);
 // --- ROTAS DE REGISTRO DE PROGRESSO ---
 routes.post('/registros', registroCtrl.registrarProgresso);
 routes.get('/registros/perfil/:perfilId/data/:data', registroCtrl.listarPorData);
+
+// --- ROTAS DE RELATÓRIO IA ---
+routes.post('/relatorios-ia', relatorioCtrl.gerar);
+routes.get('/relatorios-ia/usuario/:usuarioId', relatorioCtrl.listar);
 
 export default routes;
