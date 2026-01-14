@@ -57,6 +57,13 @@ Para completar a sua documentação, preparei uma tabela detalhada que serve com
 | `/registros` | `POST` | Salva progresso diário/semanal. | `{"habitoId", "usuarioId", "qtdRealizada", "data"(YYYY-MM-DD)}` | `{"message": "Registrado"}` |
 | `/registros/perfil/:perfilId/data/:data` | `GET` | Histórico de um dia. | `perfilId` e `data (YYYY-MM-DD)` | `Array de Registro[]` |
 
+### 6. Relatórios IA
+
+| Rota | Método | Descrição | Parâmetros/Corpo (JSON) | Resposta Esperada (201/200) |
+| --- | --- | --- | --- | --- |
+| `/relatorios-ia` | `POST` | Coleta dados do período e gera análise via IA. | `{"usuarioId", "dataInicio", "dataFim"}` | `{"id", "textoAnalise", "dataGeracao"}` |
+| `/relatorios-ia/usuario/:usuarioId` | `GET` | Recupera o histórico de análises do usuário. | `usuarioId na URL` | `Array de RelatorioIA[]` |
+
 ## Como Rodar o Projeto
 
 ### Passo 1: Configurar as Variáveis de Ambiente

@@ -1,4 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
@@ -37,10 +41,10 @@ export class RelatorioIA {
   public async gerar(dados: any): Promise<void> {
     console.log("Processando dados para IA...");
 
-    const model = "gemini-1.5-flash";
+    const model = "gemini-2.5-flash-lite";
 
     const prompt = `
-      Analise os dados do usuário e gere um relatório de análise de hábitos.
+      Analise os dados do usuário e gere um relatório de análise de hábitos para ele mesmo ver, não entre em detalhes muito técnicos e tente ser motivador, mas não exagere demais.
       Dados fornecidos:
       - Perfil: ${dados.perfil}
       - Hábitos: ${dados.habitos}

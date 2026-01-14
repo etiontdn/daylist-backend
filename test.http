@@ -146,3 +146,13 @@ Content-Type: application/json
 
 ### /registros/perfil/:perfilId/data/:data - Histórico de um dia
 GET http://localhost:3000/registros/perfil/1/data/2025-01-13
+
+### Relatório IA - Gerar Análise
+POST http://localhost:3000/relatorios-ia
+Content-Type: application/json
+
+{
+  "usuarioId": 1,
+  "dataInicio": "2025-01-01",
+  "dataFim": "2025-01-13"
+}
