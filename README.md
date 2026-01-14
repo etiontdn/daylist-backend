@@ -72,6 +72,7 @@ DB_PORT=3306
 DB_DATABASE=daylist
 DB_USERNAME=daylist-admin
 DB_PASSWORD=daylist-admin
+GEMINI_API_KEY=CHAVEAQUI
 
 ```
 
