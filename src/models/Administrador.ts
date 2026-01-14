@@ -20,4 +20,11 @@ export class Administrador extends Usuario {
         }
         return senha;
     }
+
+    toJSON(): any {
+        return {
+            ...super.toJSON(),
+            tipo_usuario: this.tipo_usuario,
+        };
+    }
 }

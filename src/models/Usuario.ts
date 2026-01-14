@@ -76,4 +76,13 @@ export class Usuario {
     public getTipo(): TipoUsuarioEnum {
         return this._tipo_usuario;
     }
+
+    toJSON(): any {
+        return {
+            id: this._id,
+            name: this._name,
+            email: this._email,
+            tipo_usuario: this._tipo_usuario,
+        };
+    }
 }

@@ -31,7 +31,7 @@ export class RegistroHabitoController {
       await this.registroService.registarProgresso(habitoId, qtdRealizada, dataRegistro);
 
       // 3. Após registrar, dispara a verificação de ofensiva para atualizar o "foguinho"
-      await this.perfilService.processarVerificacaoOfensiva(usuarioId, dataRegistro);
+      await this.perfilService.processarVerificacaoOfensiva(usuarioId, new Date(dataRegistro));
 
       return res.status(200).json({ 
         message: "Progresso registrado e ofensiva atualizada!" 

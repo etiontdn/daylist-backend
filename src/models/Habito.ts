@@ -51,4 +51,17 @@ export class Habito {
   public arquivar(): void {
     this.ativo = false;
   }
+
+  toJSON(): any {
+    return {
+      id: this._id,
+      nome: this._nome,
+      categoria: this._categoria,
+      frequencia: this._frequencia,
+      unidadeMedida: this._unidadeMedida,
+      metaAlvo: this._metaAlvo,
+      ativo: this._ativo,
+      motivacao: this._motivacao,
+    };
+  }
 }

@@ -32,6 +32,16 @@ export class RelatorioIA {
   public gerar(dados: any): void {
     console.log("Processando dados para IA...");
   }
+
+  toJSON(): any {
+    return {
+      id: this._id,
+      textoAnalise: this._textoAnalise,
+      dataInicio: this._dataInicio.toISOString().split('T')[0],
+      dataFim: this._dataFim.toISOString().split('T')[0],
+      dataGeracao: this._dataGeracao,
+    };
+  }
 }
 
 // TODO: Service, Controller e Routes do Relatoria IA,

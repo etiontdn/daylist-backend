@@ -41,4 +41,15 @@ export class RegistroHabito {
     else if (this._qtdRealizada > 0) this._status = StatusHabitoEnum.PARCIAL;
     else this._status = StatusHabitoEnum.PENDENTE;
   }
+
+  toJSON(): any {
+    return {
+      id: this._id,
+      habito_id: this._habito_id,
+      dataReferencia: this._dataReferencia.toISOString().split('T')[0],
+      qtdRealizada: this._qtdRealizada,
+      status: this._status,
+      atualizadoEm: this._atualizadoEm,
+    };
+  }
 }

@@ -37,7 +37,7 @@ export class HabitoService {
             [perfilId]
         );
 
-        return rows;
+        return rows.map((row: any) => new Habito(row));
     }
 
     /**

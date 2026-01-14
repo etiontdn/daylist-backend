@@ -138,9 +138,9 @@ POST http://localhost:3000/registros
 Content-Type: application/json
 
 {
-  "habitoId": 7,
+  "habitoId": 2,
   "usuarioId": 1,
-  "qtdRealizada": 1,
+  "qtdRealizada": 0.4,
   "data": "2025-01-13"
 }
 
