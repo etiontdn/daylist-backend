@@ -9,6 +9,6 @@ const app = express();
 app.use(express.json()); // Para o Express entender JSON no corpo das requisições
 app.use(routes); // Ativa todas as rotas que criamos
 
-app.listen(3000, () => {
-  console.log("🚀 Servidor rodando na porta 3000");
+app.listen(5050, () => {
+  console.log("🚀 Servidor rodando na porta 5050");
 });

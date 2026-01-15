@@ -1,5 +1,5 @@
 ### Cadastrar Usuário
-POST http://localhost:3000/auth/registrar
+POST http://localhost:5050/auth/registrar
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### Cadastrar Usuário - Email Já Cadastrado
-POST http://localhost:3000/auth/registrar
+POST http://localhost:5050/auth/registrar
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### Login Usuário
-POST http://localhost:3000/auth/login
+POST http://localhost:5050/auth/login
 Content-Type: application/json
 
 {
@@ -27,7 +27,7 @@ Content-Type: application/json
 }
 
 ### Login Usuário - Senha Incorreta
-POST http://localhost:3000/auth/login
+POST http://localhost:5050/auth/login
 Content-Type: application/json
 
 {
@@ -36,7 +36,7 @@ Content-Type: application/json
 }
 
 ### Login Usuário - Email Inexistente
-POST http://localhost:3000/auth/login
+POST http://localhost:5050/auth/login
 Content-Type: application/json
 
 {
@@ -45,16 +45,16 @@ Content-Type: application/json
 }
 
 ### Verificar Email Existente
-GET http://localhost:3000/auth/verificar-email?email=joao.silva@example.com
+GET http://localhost:5050/auth/verificar-email?email=joao.silva@example.com
 
 ### Verificar Email Inexistente
-GET http://localhost:3000/auth/verificar-email?email=joao.silva2@example.com
+GET http://localhost:5050/auth/verificar-email?email=joao.silva2@example.com
 
 ### Perfil do usuário id
-GET http://localhost:3000/perfil/1
+GET http://localhost:5050/perfil/1
 
 ### Preencher dados Biometria
-PUT http://localhost:3000/perfil/biometria
+PUT http://localhost:5050/perfil/biometria
 Content-Type: application/json
 
 {
@@ -66,7 +66,7 @@ Content-Type: application/json
 }
 
 ### Verificar Ofensiva
-POST http://localhost:3000/perfil/verificar-ofensiva
+POST http://localhost:5050/perfil/verificar-ofensiva
 Content-Type: application/json
 
 {
@@ -76,7 +76,7 @@ Content-Type: application/json
 
 
 ### /admin/usuarios - Cria usuário com senha temporária
-POST http://localhost:3000/admin/usuarios
+POST http://localhost:5050/admin/usuarios
 Content-Type: application/json
 
 {
@@ -86,7 +86,7 @@ Content-Type: application/json
 }
 
 ### /admin/usuarios/resetar-senha - Reseta a senha do usuário para uma senha temporária
-PATCH http://localhost:3000/admin/usuarios/resetar-senha
+PATCH http://localhost:5050/admin/usuarios/resetar-senha
 Content-Type: application/json
 
 {
@@ -95,13 +95,13 @@ Content-Type: application/json
 }
 
 ### /admin/estatisticas - Estatísticas do sistema
-GET http://localhost:3000/admin/estatisticas
+GET http://localhost:5050/admin/estatisticas
 
 ### /admin/usuarios/:id - Buscar usuário por ID
-GET http://localhost:3000/admin/usuarios/1
+GET http://localhost:5050/admin/usuarios/1
 
 ### /habitos - Criar hábito para usuário
-POST http://localhost:3000/habitos
+POST http://localhost:5050/habitos
 Content-Type: application/json
 
 {
@@ -115,10 +115,10 @@ Content-Type: application/json
 }
 
 ### /habitos/perfil/:perfilId - Listar hábitos do perfil 
-GET http://localhost:3000/habitos/perfil/1
+GET http://localhost:5050/habitos/perfil/1
 
 ### /habitos/:id - Atualizar hábito
-PUT http://localhost:3000/habitos/1
+PUT http://localhost:5050/habitos/1
 Content-Type: application/json
 
 {
@@ -131,10 +131,10 @@ Content-Type: application/json
 }
 
 ### Arquivar hábito
-DELETE http://localhost:3000/habitos/1
+DELETE http://localhost:5050/habitos/1
 
 ### Registrar progresso do hábito
-POST http://localhost:3000/registros
+POST http://localhost:5050/registros
 Content-Type: application/json
 
 {
@@ -145,10 +145,10 @@ Content-Type: application/json
 }
 
 ### /registros/perfil/:perfilId/data/:data - Histórico de um dia
-GET http://localhost:3000/registros/perfil/1/data/2025-01-13
+GET http://localhost:5050/registros/perfil/1/data/2025-01-13
 
 ### Relatório IA - Gerar Análise
-POST http://localhost:3000/relatorios-ia
+POST http://localhost:5050/relatorios-ia
 Content-Type: application/json
 
 {
