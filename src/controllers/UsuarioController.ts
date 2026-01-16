@@ -36,7 +36,7 @@ export class UsuarioController {
             return res.status(201).json({
                 message:
                     "Usuário criado com sucesso! Seus hábitos iniciais já estão prontos.",
-                data: resultado,
+                user: resultado,
             });
         } catch (error: any) {
             // Tratamento de erro específico para e-mail duplicado

@@ -99,6 +99,7 @@ export class UsuarioService {
                 userId: usuarioId,
                 perfilId: perfilId,
                 email: email,
+                tipo: "CLIENTE",
             };
         } catch (error: any) {
             await connection.rollback();
