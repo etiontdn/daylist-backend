@@ -78,6 +78,7 @@ export class UsuarioController {
                 message: "Login realizado com sucesso",
                 user: {
                     id: usuario.id,
+                    name: usuario.name,
                     email: usuario.email,
                     tipo: usuario.tipo_usuario,
                 },

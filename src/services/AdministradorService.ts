@@ -37,8 +37,8 @@ export class AdministradorService {
 
         // 5. Escrita no Banco de Dados
         const [result]: any = await pool.query(
-            "INSERT INTO Usuarios (email, senha_hash, tipo_usuario) VALUES (?, ?, ?)",
-            [novoUsuario.email, novoUsuario.senha_hash, TipoUsuarioEnum.CLIENTE]
+            "INSERT INTO Usuarios (name, email, senha_hash, tipo_usuario) VALUES (?, ?, ?, ?)",
+            [novoUsuario.name, novoUsuario.email, novoUsuario.senha_hash, TipoUsuarioEnum.CLIENTE]
         );
 
         // 6. Criar Perfil Básico

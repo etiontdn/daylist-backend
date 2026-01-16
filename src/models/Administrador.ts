@@ -8,7 +8,7 @@ export class Administrador extends Usuario {
     }
 
     public cadastrarUsuario(email: string, nome: string): Usuario {
-        return new Usuario({ email, tipo_usuario: TipoUsuarioEnum.CLIENTE });
+        return new Usuario({ name: nome, email, tipo_usuario: TipoUsuarioEnum.CLIENTE });
     }
 
     public resetarSenhaUsuario(idUsuario: number): string {
