@@ -56,6 +56,8 @@ export class PerfilService {
 
         return {
             imc: perfil.calcularIMC().toFixed(2),
+            dataNascimento: perfil.dataNascimento,
+            sexo: perfil.sexo,
             ofensivaAtual: perfil.ofensivaAtual,
             maiorOfensiva: perfil.maiorOfensiva,
             pesoAtual: perfil.pesoKg,
