@@ -1,11 +1,15 @@
 import express from 'express';
 import routes from './routes';
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 
+app.use(cors({
+  origin: '*'
+})); // Habilita CORS para todas as rotas
 app.use(express.json()); // Para o Express entender JSON no corpo das requisições
 app.use(routes); // Ativa todas as rotas que criamos
 
