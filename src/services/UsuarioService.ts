@@ -96,9 +96,9 @@ export class UsuarioService {
             await connection.commit();
 
             return {
-                userId: usuarioId,
-                perfilId: perfilId,
+                idd: usuarioId,
                 email: email,
+                name: name,
                 tipo: "CLIENTE",
             };
         } catch (error: any) {
