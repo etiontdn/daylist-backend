@@ -41,8 +41,8 @@ export class PerfilService {
 
         // 3. Persistimos no banco de dados
         await pool.query(
-            "UPDATE Perfis SET pesoKg = ?, alturaCm = ? WHERE usuario_id = ?",
-            [perfilData.pesoKg, perfilData.alturaCm, usuarioId]
+            "UPDATE Perfis SET pesoKg = ?, alturaCm = ?, dataNascimento = ?, sexo = ? WHERE usuario_id = ?",
+            [perfilData.pesoKg, perfilData.alturaCm, perfilData.dataNascimento, perfilData.sexo, usuarioId]
         );
     }
 
